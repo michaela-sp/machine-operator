@@ -21,8 +21,8 @@ Although we truly trust this backend, we are happy you will test it!
 Sadly, this backend needs to be run locally.
 
 Here are the prerequisites:
-    - Python 3.8 or newer
-    - dependencies from the `requirements.txt` file
+  - Python 3.8 or newer
+  - dependencies from the `requirements.txt` file
 
 To run the application locally, run the `main.py` file. The application is set to run on localhost (127.0.0.1), port 8000.
 Open your browser at `http://127.0.0.1:8000` to verify it's running by viewing the homepage.
