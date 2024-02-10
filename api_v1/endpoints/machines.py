@@ -61,3 +61,8 @@ def delete_machine(machine_id: int) -> fastapi.Response:
         logging.debug(traceback.format_exc())
         return fastapi.Response(content="Error processing your request", status_code=500)
     return fastapi.responses.JSONResponse(status_code=200, content=result)
+
+
+@router.get("/secret_machines/")
+def get_secret_machines():
+    raise fastapi.HTTPException(status_code=403, detail="See more at https://http.cat/status/403")

@@ -5,26 +5,26 @@ from typing import Dict, Optional
 from pydantic import BaseModel
 
 
-class MachineState(Enum):
+class MachineState(str, Enum):
     CREATED = "created"
     DELETED = "deleted"
 
 
-class Template(Enum):
+class Template(str, Enum):
     WINDOWS = "the_always_broken_Windows"
     MAC_OS = "the_unsatisfactory_macOS"
     LINUX = "the_obsolete_Linux"
-    CHROME_OS = "the_never_known_ChromeOS"
+    CHROME_OS = "the_never_known_chromeOS"
 
 
 class MachineCreate(BaseModel):
-    custom_name: Optional[str]
+    custom_name: str
     template: Template
 
 
 class Machine(BaseModel):
     machine_id: int
-    custom_name: Optional[str]
+    custom_name: str
     template: Template
     state: MachineState
     date_created: datetime.datetime
@@ -36,7 +36,7 @@ class Machine(BaseModel):
             "custom_name": self.custom_name,
             "template": self.template.value,
             "state": self.state.value,
-            "date_created": self.date_created.strftime("%Y-%d-%m, %H:%M:%S") if self.date_created else None,
-            "date_deleted": self.date_deleted.strftime("%m-%d-%Y %H:%M:%S") if self.date_deleted else None,
+            "date_created": self.date_created.strftime("%Y-%d-%m, %H:%M:%S"),
+            "date_deleted": self.date_deleted.strftime("%m.%d.%Y %H:%M:%S") if self.date_deleted else None,
         }
         return response

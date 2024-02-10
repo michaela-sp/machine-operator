@@ -4,6 +4,7 @@ from typing import ClassVar, Dict, List
 from fastapi import HTTPException
 
 from models import machines
+from utils.validation import validated_template
 
 
 class FakeDB:
@@ -11,13 +12,11 @@ class FakeDB:
 
     @classmethod
     def create_machine(cls, machine_specification: machines.MachineCreate) -> Dict[str, int]:
-        active_machines_count = len(
-            [machine_key for machine_key, machine_value in cls._machines.items() if machine_value.date_deleted is None]
-        )
-        if active_machines_count > 200:
-            raise HTTPException(status_code=403, detail="Space for active machines is used up!")
+        active_machines_count = len([value for value in cls._machines.values() if value.date_deleted is None])
+        if active_machines_count > 50:
+            raise HTTPException(status_code=500, detail="Space for 40 active machines is used up!")
 
-        if len(cls._machines.items()) > 1500:
+        if len(cls._machines.items()) > 1000:
             raise HTTPException(status_code=418, detail="This is just too much of machines.")
 
         # uuid? ;)
@@ -29,7 +28,7 @@ class FakeDB:
                     machine_id=machine_id,
                     custom_name=machine_specification.custom_name,
                     state=machines.MachineState.CREATED.value,
-                    template=machine_specification.template,
+                    template=validated_template(machine_specification.template),
                     date_created=datetime.now()),
             }
         )
@@ -50,7 +49,7 @@ class FakeDB:
     def read_machine(cls, machine_id: int) -> Dict:
         machine = cls._machines.get(machine_id, None)
         if not machine:
-            raise HTTPException(status_code=404, detail=f"Machine with id: {machine_id} was not found!")
+            raise HTTPException(status_code=426, detail=f"Machine with id: {machine_id} was not found!")
         return machine.as_response()
 
     @classmethod

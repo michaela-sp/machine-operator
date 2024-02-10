@@ -9,6 +9,7 @@ The first version (remember - primitive means first!) allows you to:
   - `the_unsatisfactory_macOS`
   - `the_obsolete_Linux`
   - `the_never_known_ChromeOS`
+  - `the_always_supported_DOS`
 - delete the machine based on machine id
 - read information about machine based on machine id
 - read information about all available machine records  
