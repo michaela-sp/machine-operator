@@ -17,7 +17,7 @@ class FakeDB:
             raise HTTPException(status_code=500, detail="Space for 40 active machines is used up!")
 
         if len(cls._machines.items()) > 1000:
-            raise HTTPException(status_code=418, detail="This is just too much of machines.")
+            raise HTTPException(status_code=500, detail="This is just too much of machines.")
 
         # uuid? ;)
         machine_id = len(cls._machines.keys()) + 1 if cls._machines else 1
@@ -49,7 +49,7 @@ class FakeDB:
     def read_machine(cls, machine_id: int) -> Dict:
         machine = cls._machines.get(machine_id, None)
         if not machine:
-            raise HTTPException(status_code=426, detail=f"Machine with id: {machine_id} was not found!")
+            raise HTTPException(status_code=418, detail=f"Machine with id: {machine_id} was not found!")
         return machine.as_response()
 
     @classmethod
