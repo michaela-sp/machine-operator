@@ -14,7 +14,7 @@ class Template(str, Enum):
     WINDOWS = "the_always_broken_Windows"
     MAC_OS = "the_unsatisfactory_macOS"
     LINUX = "the_obsolete_Linux"
-    CHROME_OS = "the_never_known_chromeOS"
+    CHROME_OS = "the_elusive_ChromeOS"
 
 
 class MachineCreate(BaseModel):
